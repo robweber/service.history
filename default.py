@@ -15,7 +15,9 @@ class HistoryService:
     def playStarted(self):
         
         if(self.monitor.isPlayingVideo()):
-            utils.log(self.monitor.getPlayingFile())
+            videoTag = self.monitor.getVideoInfoTag()
+
+            utils.log(videoTag.getTitle())
 
 class HistoryPlayerMonitor(xbmc.Player):
     onPlay = None
