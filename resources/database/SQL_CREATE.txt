@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS [history] 
+(
+    [id] INTEGER PRIMARY KEY AUTOINCREMENT,
+    [type] TEXT NOT NULL,
+    [name] TEXT NOT NULL,
+    [date] INTEGER
+);
