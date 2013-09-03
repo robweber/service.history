@@ -104,12 +104,18 @@ class DatabaseObject:
                 return newList
                 
                 
-        def getAllOrdered(self):                
-                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY name COLLATE NOCASE" % self.tableName)
+        def getAllOrdered(self,order):                
+                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY '%s' COLLATE NOCASE" % self.tableName,order)
                 allObjects = self.gdb.cursor.fetchall()
                 newList = self.encodeUtf8(allObjects)
                 return newList          
-                
+
+        def getAllOrderedLimit(self,order,page,limit):
+                startNum = page * limit
+                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY %s desc LIMIT %i, %i COLLATE NOCASE" % (self.tableName,order,startNum,limit))
+                allObjects = self.gdb.cursor.fetchall()
+                newList = self.encodeUtf8(allObjects)
+                return newList
                 
         def getOneByName(self, name):                   
                 self.gdb.cursor.execute("SELECT * FROM '%s' WHERE name = ?" % self.tableName, (name,))

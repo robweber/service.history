@@ -4,13 +4,13 @@
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
-  <extension point="xbmc.python.script" library="manual.py"> 
-     <provides>executable</provides> 
+  <extension point="xbmc.python.pluginsource" library="gui.py"> 
+     <provides>video</provides> 
   </extension> 
   <extension point="xbmc.service" library="default.py" start="login">
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en"></summary>
+    <summary lang="en">Log XBMC play history for review</summary>
     <description lang="en"></description>
     <language></language>
   </extension>
