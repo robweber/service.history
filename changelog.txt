@@ -1,3 +1,6 @@
+Version 0.0.2
+
+Started PIN code functionality, can currently use to lock settings and history deletion
 
 Version 0.0.1
 

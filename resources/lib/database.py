@@ -93,7 +93,11 @@ class DatabaseObject:
         def deleteAll(self):
                 self.gdb.cursor.execute("DELETE FROM '%s'" % self.tableName)            
         
-        
+        def delete(self,id):
+                utils.log("DELETE")
+                self.gdb.cursor.execute("DELETE FROM '%s' where id = %s" % (self.tableName,str(id)))
+                self.gdb.commit()
+                
         def getAll(self):
                 self.gdb.cursor.execute("SELECT * FROM '%s'" % self.tableName)
                 allObjects = self.gdb.cursor.fetchall()
