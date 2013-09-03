@@ -28,7 +28,7 @@ class HistoryService:
             videoTag = self.monitor.getVideoInfoTag()
 
             utils.log("Logging: " + videoTag.getTitle(),xbmc.LOGDEBUG)
-            self.historyDB.insert(("video",videoTag.getTitle(),int(time.time())))
+            self.historyDB.insert(("video",videoTag.getTitle(),self.monitor.getPlayingFile(),int(time.time())))
 
 class HistoryPlayerMonitor(xbmc.Player):
     onPlay = None
