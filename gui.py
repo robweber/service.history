@@ -34,6 +34,7 @@ class HistoryGUI:
         #we are listing files
         xbmcplugin.setContent(int(sys.argv[1]),'files')
         xbmcplugin.setPluginCategory(int(sys.argv[1]),'Play History')
+        xbmcplugin.addSortMethod(int(sys.argv[1]),xbmcplugin.SORT_METHOD_NONE)
         context_url = "%s?%s"
         
         #load the history

@@ -113,7 +113,7 @@ class DatabaseObject:
 
         def getAllOrderedLimit(self,order,page,limit):
                 startNum = page * limit
-                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY '%s' LIMIT %i, %i COLLATE NOCASE" % (self.tableName,order,startNum,limit))
+                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY %s desc LIMIT %i, %i COLLATE NOCASE" % (self.tableName,order,startNum,limit))
                 allObjects = self.gdb.cursor.fetchall()
                 newList = self.encodeUtf8(allObjects)
                 return newList

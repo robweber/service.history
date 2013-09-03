@@ -35,11 +35,17 @@ class HistoryService:
 
     def playStarted(self):
         
-        if(self.playerMonitor.isPlayingVideo()):
+        if(self.playerMonitor.isPlayingVideo() and utils.getSetting('monitor_video') == 'true'):
             videoTag = self.playerMonitor.getVideoInfoTag()
 
             utils.log("Logging: " + videoTag.getTitle(),xbmc.LOGDEBUG)
             self.historyDB.insert(("video",videoTag.getTitle(),self.playerMonitor.getPlayingFile(),int(time.time())))
+            
+        elif(self.playerMonitor.isPlayingAudio() and utils.getSetting('monitor_music') == 'true'):
+            audioTag = self.playerMonitor.getMusicInfoTag()
+
+            utils.log("Logging: " + audioTag.getTitle(),xbmc.LOGDEBUG)
+            self.historyDB.insert(('audio',audioTag.getTitle(),self.playerMonitor.getPlayingFile(),int(time.time())))
 
     def onSettingsUpdate(self):
         #check if a pin is required to change settings

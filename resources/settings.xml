@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category id="general" label="General">
+		<setting type="bool" id="monitor_video" label="Monitor Video" default="true" />
+		<setting type="bool" id="monitor_music" label="Monitor Music" default="false" />
 	</category>
 	<category id="security" label="Security">
 		<setting id="set_pin" type="action" action="RunScript(special://home/addons/service.history/set_pin.py)" label="Set PIN" />
