@@ -48,7 +48,7 @@ class Database:
         def checkDBStructure(self):
                 
                 try:
-                        rcbSettingRows = WatchHistory(self).getAll()
+                        rcbSettingRows = DBSettings(self).getOneByName('user_pin')
                         if(rcbSettingRows == None): 
                                 self.self.createTables()
                                 return 1, ""
@@ -56,10 +56,6 @@ class Database:
                         
                 except  Exception, (exc): 
                         self.createTables()
-                        
-                        
-                
-                
         
 class DatabaseObject:
         
@@ -80,7 +76,8 @@ class DatabaseObject:
         def update(self, columns, args, id):
                 
                 if(len(columns) != len(args)):
-                        #TODO raise Exception?                  
+                        #TODO raise Exception?
+                        utils.log("# columns does not match # args",xbmc.LOGDEBUG)
                         return
                         
                 updateString = "Update %s SET " %self.tableName
@@ -91,7 +88,7 @@ class DatabaseObject:
                                 
                 updateString += " WHERE id = " +str(id)         
                 self.gdb.cursor.execute(updateString, args)
-                
+                self.gdb.commit()
         
         def deleteAll(self):
                 self.gdb.cursor.execute("DELETE FROM '%s'" % self.tableName)            
@@ -112,7 +109,7 @@ class DatabaseObject:
 
         def getAllOrderedLimit(self,order,page,limit):
                 startNum = page * limit
-                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY %s desc LIMIT %i, %i COLLATE NOCASE" % (self.tableName,order,startNum,limit))
+                self.gdb.cursor.execute("SELECT * FROM '%s' ORDER BY '%s' LIMIT %i, %i COLLATE NOCASE" % (self.tableName,order,startNum,limit))
                 allObjects = self.gdb.cursor.fetchall()
                 newList = self.encodeUtf8(allObjects)
                 return newList
@@ -163,6 +160,22 @@ class DatabaseObject:
                                         newItem.append(param)
                         newList.append(newItem)
                 return newList
+
+class DBSettings(DatabaseObject):
+
+        def __init__(self, gdb):                
+                self.gdb = gdb
+                self.tableName = "settings"
+
+        def getPIN(self):
+                pin = self.getOneByName('user_pin')
+
+                return str(pin[2])
+        
+        def setPIN(self,new_pin):
+                pin = self.getOneByName('user_pin')
+
+                self.update(('value',),(str(new_pin),),int(pin[0]))
 
 class WatchHistory(DatabaseObject):
 

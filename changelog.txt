@@ -1,2 +1,5 @@
+
 Version 0.0.1
+
+will display play history in a simple list, no pagination or context menu functions yet
 
