@@ -64,7 +64,7 @@ class HistoryGUI:
         if(utils.getSetting('require_pin_on_delete') == 'true'):
             user_try = xbmcgui.Dialog().numeric(0,'PIN Required')
 
-            if(user_try == self.settings.getPIN()):
+            if(self.settings.checkPIN(user_try)):
                 self.historyDB.delete(id)
                 xbmc.executebuiltin('Container.Refresh')
             else:

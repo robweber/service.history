@@ -1,6 +1,7 @@
 Version 0.0.3
 
 Can monitor music, video, or both
+added hashing to pin for db security
 
 Version 0.0.2
 

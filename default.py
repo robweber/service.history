@@ -52,12 +52,10 @@ class HistoryService:
         if(self.require_pin):
             dialog = xbmcgui.Dialog()
             
-            current_pin = self.settings.getPIN()
-            
             #ask the user for their pin
             user_try = dialog.numeric(0,'Pin required to change settings')
 
-            if(current_pin == user_try):
+            if(self.settings.checkPIN(user_try)):
                 #make backup of new settings
                 self._settingsBackup()
                 

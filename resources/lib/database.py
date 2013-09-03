@@ -1,5 +1,6 @@
 import os, sys, shutil
 import sqlite3 as sqlite
+import hashlib
 import utils as utils
 import xbmc
 import xbmcvfs
@@ -166,7 +167,7 @@ class DatabaseObject:
                 return newList
 
 class DBSettings(DatabaseObject):
-
+        
         def __init__(self, gdb):                
                 self.gdb = gdb
                 self.tableName = "settings"
@@ -177,9 +178,20 @@ class DBSettings(DatabaseObject):
                 return str(pin[2])
         
         def setPIN(self,new_pin):
+                 
                 pin = self.getOneByName('user_pin')
 
-                self.update(('value',),(str(new_pin),),int(pin[0]))
+                self.update(('value',),(str(hashlib.sha224(new_pin).hexdigest()),),int(pin[0]))
+
+        def checkPIN(self,user_try):
+                pin = self.getOneByName('user_pin')
+                utils.log(hashlib.sha224(user_try).hexdigest())
+                #check if the hashes match
+                if(str(pin[2]) == str(hashlib.sha224(user_try).hexdigest())):
+                        return True
+                else:
+                        return False
+                
 
 class WatchHistory(DatabaseObject):
 

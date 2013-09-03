@@ -21,7 +21,7 @@ if(current_pin != '0000'):
     #ask user to input current pin
     user_input = dialog.numeric(0,'Enter Current PIN')
 
-    if(user_input == current_pin):
+    if(settings.checkPIN(user_input)):
         allow_change = True
     else:
         dialog.ok('Error','Incorrect PIN')
